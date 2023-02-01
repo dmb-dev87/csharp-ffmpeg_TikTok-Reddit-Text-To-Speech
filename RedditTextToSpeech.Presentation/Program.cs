@@ -49,11 +49,11 @@ try
     var video = string.Empty;
     if (comments <= 0)
     {
-        video = await videoGenerator.GenerateVideo(parsed.Url, parsed.Background, output, gender, start);
+        video = await videoGenerator.GenerateVideo(parsed.Url, parsed.Background, parsed.Audio, output, gender, start);
     }
     else
     {
-        video = await videoGenerator.GenerateVideo(parsed.Url, parsed.Background, output, gender, start, comments, alternate);
+        video = await videoGenerator.GenerateVideo(parsed.Url, parsed.Background, parsed.Audio, output, gender, start, comments, alternate);
     }
     if (video != string.Empty)  new Process() { StartInfo = new ProcessStartInfo(video) { UseShellExecute = true } }.Start();
 }

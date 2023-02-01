@@ -23,6 +23,6 @@ namespace RedditTextToSpeech.Logic.Services
         /// <param name="startTime">The start time.</param>
         /// <param name="background">The background video.</param>
         /// <returns>Awaitable task returning path.</returns>
-        Task<string> GetVideo(string path, IList<AudioImagePair> values, TimeSpan startTime, string background);
+        Task<string> GetVideo(string path, IList<AudioImagePair> values, TimeSpan startTime, string background, string backgroundaudio);
     }
 }

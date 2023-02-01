@@ -52,7 +52,7 @@ namespace RedditTextToSpeech.Logic
         /// <param name="gender">The gender of the TTS voice.</param>
         /// <param name="startTime">The starting time for the background video.</param>
         /// <returns>The path to the video produced.</returns>
-        public async Task<string> GenerateVideo(string url, string backgroundVideo, string output, Gender gender, TimeSpan startTime)
+        public async Task<string> GenerateVideo(string url, string backgroundVideo, string backgroundaudio, string output, Gender gender, TimeSpan startTime)
         {
             var values = new List<AudioImagePair>();
             try
@@ -72,7 +72,7 @@ namespace RedditTextToSpeech.Logic
                     values.Add(new AudioImagePair(contentAudio, contentImage));
                 }
 
-                var video = await this.videoFactory.GetVideo(values, startTime, backgroundVideo, output);
+                var video = await this.videoFactory.GetVideo(values, startTime, backgroundVideo, backgroundaudio, output);
 
                 foreach (var value in values)
                 {
@@ -103,7 +103,7 @@ namespace RedditTextToSpeech.Logic
         /// <param name="startTime">The starting time for the background video.</param>
         /// <param name="commentsToHarvest">The number of comments to add to the video.</param>
         /// <returns>The path to the video produced.</returns>
-        public async Task<string> GenerateVideo(string url, string backgroundVideo, string output, Gender gender, TimeSpan startTime, int commentsToHarvest, bool alternateVoice)
+        public async Task<string> GenerateVideo(string url, string backgroundVideo, string backgroundaudio, string output, Gender gender, TimeSpan startTime, int commentsToHarvest, bool alternateVoice)
         {
             var values = new List<AudioImagePair>();
             try
@@ -133,7 +133,7 @@ namespace RedditTextToSpeech.Logic
                     }
                 }
 
-                var video = await this.videoFactory.GetVideo(values, startTime, backgroundVideo, output);
+                var video = await this.videoFactory.GetVideo(values, startTime, backgroundVideo, backgroundaudio, output);
 
                 foreach (var value in values)
                 {

@@ -29,7 +29,7 @@ namespace RedditTextToSpeech.Logic.Services
         /// <param name="startTime">The start time.</param>
         /// <param name="background">The background video.</param>
         /// <returns>Awaitable task returning path.</returns>
-        public async Task<string> GetVideo(string path, IList<AudioImagePair> values, TimeSpan startTime, string background)
+        public async Task<string> GetVideo(string path, IList<AudioImagePair> values, TimeSpan startTime, string background, string backgroundaudio)
         {
             await Task.Run(() =>
             {
@@ -73,6 +73,8 @@ namespace RedditTextToSpeech.Logic.Services
                     overlays.Append(i > 0 ? $"[v{i - 1}]" : "[a]");
                     overlays.Append($"scale2ref=iw*0.9:ow/mdar[p{i}][s{i}];");
                     overlays.Append($"[s{i}][p{i}]overlay = (main_w-overlay_w)/2:(main_h-overlay_h)/2:enable = 'between(t,{time.TotalSeconds.ToString(culture)},{(time + durations[i]).TotalSeconds.ToString(culture)})'[v{i}]");
+                    overlays.Append($"scale2ref=iw*1.6:ow/mdar[pp{i}][ss{i}];");
+                    overlays.Append($"[ss{i}][pp{i}]overlay = (main_w-overlay_w)/2:(main_h-overlay_h)/2:enable = 'between(t,{time.TotalSeconds.ToString(culture)},{(time + durations[i]).TotalSeconds.ToString(culture)})'[v{i}]");
                     if (i < count - 1)
                     {
                         overlays.Append(";");
@@ -81,7 +83,7 @@ namespace RedditTextToSpeech.Logic.Services
                 }
 
                 this.RunFFMPEGProcess($"-y -ss {startTime} -t {totalDuration} -i \"{background}\" -c:v copy -c:a copy {tempVideo}");
-                this.RunFFMPEGProcess($"-y -i {tempVideo} {inputs} -i {tempAudio} -vcodec libx265 -crf 30 -filter_complex \"[0:v]crop = ih*(1242/2688):ih[a];{overlays}\" -map {count + 1}:a -map \"[v{count - 1}]\" -tag:v hvc1 -preset fast -shortest \"{path}\"");
+                this.RunFFMPEGProcess($"-y -i {tempVideo} {inputs} -i {tempAudio} -i {backgroundaudio} -vcodec libx265 -crf 30 -filter_complex \"[0:v]crop = ih*(1242/2688):ih[a];{overlays}\" -map {count + 1}:a -map \"[v{count - 1}]\" -tag:v hvc1 -preset fast -shortest \"{path}\"");
                 File.Delete(tempVideo);
                 File.Delete(tempAudio);
             });

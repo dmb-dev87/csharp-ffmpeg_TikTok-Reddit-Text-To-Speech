@@ -16,6 +16,9 @@ namespace RedditTextToSpeech.Presentation
         [ArgRequired(PromptIfMissing = true)]
         public string Background { get; set; }
 
+        [ArgRequired(PromptIfMissing = true)]
+        public string Audio { get; set; }
+
         public string? Output { get; set; }
 
         public Gender? Gender { get; set; }

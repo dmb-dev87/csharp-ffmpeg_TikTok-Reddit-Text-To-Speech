@@ -18,7 +18,7 @@ namespace RedditTextToSpeech.Logic
         /// <param name="gender">The gender of the TTS voice.</param>
         /// <param name="startTime">The starting time for the background video.</param>
         /// <returns>The path to the video produced.</returns>
-        Task<string> GenerateVideo(string url, string backgroundVideo, string output, Gender gender, TimeSpan startTime);
+        Task<string> GenerateVideo(string url, string backgroundVideo, string audio, string output, Gender gender, TimeSpan startTime);
 
         /// <summary>
         /// Generates a comment video from a url.
@@ -30,6 +30,6 @@ namespace RedditTextToSpeech.Logic
         /// <param name="startTime">The starting time for the background video.</param>
         /// <param name="commentsToHarvest">The number of comments to add to the video.</param>
         /// <returns>The path to the video produced.</returns>
-        Task<string> GenerateVideo(string url, string backgroundVideo, string output, Gender gender, TimeSpan startTime, int commentsToHarvest, bool alternateVoice);
+        Task<string> GenerateVideo(string url, string backgroundVideo, string audio, string output, Gender gender, TimeSpan startTime, int commentsToHarvest, bool alternateVoice);
     }
 }
